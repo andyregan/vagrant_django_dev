@@ -1,0 +1,29 @@
+root > 
+apt-get update && apt-get upgrade
+shutdown -r now
+
+apt-get install python-setuptools git-core mercurial tree vim build-essential \
+python-dev erlang erlang-nox sqlite3 python-docutils
+
+wget http://www.rabbitmq.com/releases/rabbitmq-server/v3.0.0/rabbitmq-server_3.0.0-1_all.deb
+
+easy_install pip
+pip install virtual_env
+
+vagrant >
+
+hg clone https://bitbucket.org/lopter/dj-celery
+
+virtualenv env_django_celery
+
+source env_django_celery/bin/activate
+
+cd dj-celery/
+
+pip install -r requirements.txt
+
+
+python manage.py syncdb --settings=ministrone.settings.dev
+python manage.py migrate --settings=ministrone.settings.dev
+python manage.py runserver 0.0.0.0:8000 --settings=ministrone.settings.dev
+
